@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>云家 · Yun Home</title>
+<link rel="icon" type="image/jpeg" href="https://imgbob.net/ib/qW9qO2OQe2ZLe8H_1788002525.jpg">
+<link rel="apple-touch-icon" href="https://imgbob.net/ib/qW9qO2OQe2ZLe8H_1788002525.jpg">
+<style>
+  :root{
+    --pink:#ff8fb1;
+    --purple:#a78bfa;
+    --blue:#7dd3fc;
+    --bg1:#1a0b2e;
+    --bg2:#2b1055;
+    --card:rgba(255,255,255,0.08);
+    --text:#f5e9ff;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    font-family:"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;
+    color:var(--text);
+    background:linear-gradient(135deg,var(--bg1),var(--bg2));
+    min-height:100vh;
+    overflow-x:hidden;
+  }
+  /* 星空背景 */
+  .stars{position:fixed;inset:0;pointer-events:none;z-index:0;}
+  .star{position:absolute;width:3px;height:3px;background:#fff;border-radius:50%;animation:tw 3s infinite;}
+  @keyframes tw{0%,100%{opacity:.2;}50%{opacity:1;}}
+
+  .wrap{position:relative;z-index:1;max-width:960px;margin:0 auto;padding:60px 20px;}
+
+  /* 头部 */
+  header{text-align:center;padding:40px 20px;}
+  .logo{
+    font-size:72px;font-weight:900;
+    background:linear-gradient(90deg,var(--pink),var(--purple),var(--blue));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    letter-spacing:6px;
+  }
+  .subtitle{margin-top:14px;font-size:18px;opacity:.85;letter-spacing:2px;}
+  .tagline{margin-top:8px;font-size:14px;opacity:.6;}
+
+  /* 导航 */
+  nav{
+    display:flex;justify-content:center;gap:14px;flex-wrap:wrap;
+    margin:30px 0;
+  }
+  nav a{
+    color:#fff;text-decoration:none;
+    padding:10px 22px;border-radius:30px;
+    background:linear-gradient(135deg,#ff8fb1,#e96bb0);
+    background-size:200% 200%;
+    box-shadow:0 4px 16px rgba(255,111,181,.3);
+    transition:.4s;font-size:15px;font-weight:600;
+  }
+  nav a:hover{background-position:100% 100%;transform:translateY(-3px);box-shadow:0 8px 24px rgba(255,111,181,.5);}
+
+  /* 通用区块 */
+  section{margin:50px 0;}
+  h2{
+    font-size:28px;margin-bottom:24px;
+    display:flex;align-items:center;gap:10px;
+  }
+  h2::before{content:"";width:6px;height:28px;border-radius:3px;background:linear-gradient(var(--pink),var(--purple));}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px;}
+  .card{
+    background:var(--card);border:1px solid rgba(255,255,255,0.12);
+    border-radius:18px;padding:24px;transition:.3s;
+    backdrop-filter:blur(10px);
+  }
+  .card:hover{transform:translateY(-6px);background:rgba(255,255,255,0.14);}
+  .card .ic{font-size:40px;}
+  .card h3{margin:12px 0 8px;font-size:18px;}
+  .card p{font-size:14px;opacity:.75;line-height:1.6;}
+
+  /* 关于 */
+  .about{
+    background:var(--card);border-radius:20px;padding:36px;
+    line-height:1.9;font-size:16px;border:1px solid rgba(255,255,255,0.12);
+  }
+  .about b{color:var(--pink);}
+
+  /* 口号 */
+  .slogan{
+    text-align:center;font-size:22px;padding:40px;
+    background:linear-gradient(135deg,rgba(255,143,177,.2),rgba(167,139,250,.2));
+    border-radius:20px;line-height:1.8;font-weight:600;
+  }
+
+  /* 页脚 */
+  footer{text-align:center;padding:40px 20px 20px;opacity:.55;font-size:13px;line-height:1.8;}
+
+  /* 粉色渐变按钮 */
+  .btn-pink{
+    display:inline-block;
+    margin-top:18px;
+    padding:14px 40px;
+    font-size:17px;
+    font-weight:700;
+    color:#fff;
+    text-decoration:none;
+    border:none;
+    border-radius:40px;
+    cursor:pointer;
+    background:linear-gradient(135deg,#ff8fb1 0%,#ff6fb5 40%,#e96bb0 70%,#c76bd6 100%);
+    background-size:200% 200%;
+    box-shadow:0 6px 24px rgba(255,111,181,.45);
+    transition:background-position .5s ease,transform .3s ease,box-shadow .3s ease;
+  }
+  .btn-pink:hover{
+    background-position:100% 100%;
+    transform:translateY(-3px) scale(1.03);
+    box-shadow:0 10px 32px rgba(255,111,181,.6);
+  }
+  /* 文字链接的粉色渐变（用于导航等 a 标签） */
+  .link-pink{
+    color:#ff8fb1;
+    text-decoration:none;
+    font-weight:600;
+    background:linear-gradient(90deg,#ff8fb1,#e96bb0);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    transition:.3s;
+  }
+  .link-pink:hover{filter:brightness(1.2);}
+
+  /* 入场动画 */
+  .fade{opacity:0;transform:translateY(24px);animation:fade .8s forwards;}
+  .fade:nth-child(1){animation-delay:.1s;}
+  .fade:nth-child(2){animation-delay:.25s;}
+  .fade:nth-child(3){animation-delay:.4s;}
+  @keyframes fade{to{opacity:1;transform:none;}}
+
+  /* ============ 响应式：自动重新排版 ============ */
+
+  /* 中等屏幕：平板横向 / 小笔记本（< 960px） */
+  @media (max-width:960px){
+    .wrap{padding:40px 18px;}
+    .logo{font-size:56px;}
+    .grid{grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;}
+    .card{padding:20px;}
+    .about{padding:28px;font-size:15px;}
+  }
+
+  /* 小屏幕：平板竖屏 / 大屏手机（< 720px） */
+  @media (max-width:720px){
+    .wrap{padding:30px 16px;}
+    header{padding:24px 12px;}
+    .logo{font-size:44px;letter-spacing:4px;}
+    .subtitle{font-size:16px;}
+    nav{gap:10px;margin:22px 0;}
+    nav a{padding:8px 16px;font-size:14px;}
+    h2{font-size:24px;}
+    .grid{grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;}
+    .card{padding:18px;}
+    .card .ic{font-size:34px;}
+    .card h3{font-size:16px;}
+    .about{padding:22px;font-size:14px;line-height:1.8;}
+    .slogan{font-size:18px;padding:28px 18px;}
+    section{margin:36px 0;}
+  }
+
+  /* 超小屏幕：手机竖屏（< 420px） */
+  @media (max-width:420px){
+    .wrap{padding:20px 12px;}
+    .logo{font-size:36px;letter-spacing:2px;}
+    .subtitle{font-size:14px;}
+    .tagline{font-size:12px;}
+    .grid{grid-template-columns:1fr;}          /* 手机端卡片单列堆叠 */
+    .card{padding:16px;text-align:center;}      /* 居中更适配方屏 */
+    .card .ic{font-size:32px;}
+    h2{font-size:21px;justify-content:center;}
+    .about{padding:18px;}
+    .slogan{font-size:16px;padding:24px 14px;}
+    nav a{padding:7px 13px;font-size:13px;}
+    section{margin:28px 0;}
+    footer{font-size:12px;}
+  }
+
+  /* 超大屏幕：桌面宽屏（> 1400px）—— 放宽最大宽度，避免内容过挤 */
+  @media (min-width:1400px){
+    .wrap{max-width:1200px;}
+    .logo{font-size:84px;}
+    .grid{grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:22px;}
+  }
+
+  /* 头像：粉紫渐变边框 + 外发光 + 上下缓慢浮动 */
+  .logo-avatar{
+    display:inline-block;
+    width:120px;height:120px;border-radius:50%;
+    /* 用 padding 充当渐变边框厚度 */
+    padding:4px;
+    background:linear-gradient(135deg,#ff9ff3,#c56bff);
+    /* 柔和粉紫外发光 */
+    box-shadow:0 0 15px rgba(255,159,243,.6),0 0 30px rgba(197,107,255,.4);
+    /* 上下缓慢浮动 */
+    animation:avatarFloat 3s ease-in-out infinite;
+    transition:transform .4s,box-shadow .4s;
+    margin-bottom:18px;
+  }
+  /* 悬停微放大，发光增强 */
+  .logo-avatar:hover{transform:scale(1.05);box-shadow:0 0 22px rgba(255,159,243,.85),0 0 42px rgba(197,107,255,.6);}
+  .logo-avatar img{width:100%;height:100%;object-fit:cover;display:block;border-radius:50%;}
+  /* 上下缓慢浮动关键帧 */
+  @keyframes avatarFloat{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-10px);}
+  }
+</style>
+</head>
+<body>
+
+<div class="stars" id="stars"></div>
+
+<div class="wrap">
+
+  <header class="fade">
+    <a class="logo-avatar" target="_blank" href="https://imgbob.net/WCiZOpJG0dLxDdw">
+      <img src="https://imgbob.net/ib/qW9qO2OQe2ZLe8H_1788002525.jpg" alt="云家头像.jpg"/>
+    </a>
+    <div class="logo">云家</div>
+    <div class="subtitle">Yun Home · 云端上的小窝</div>
+    <div class="tagline">一个属于同好们的温柔角落</div>
+  </header>
+
+  <nav class="fade">
+    <a href="#about">关于</a>
+    <a href="#interests">兴趣</a>
+    <a href="#vibe">氛围</a>
+    <a href="#join">加入</a>
+  </nav>
+
+  <!-- 关于 -->
+  <section id="about" class="fade">
+    <h2>关于云家</h2>
+    <div class="about">
+      <p><b>云家</b>，一个温暖又自由的小天地。我们相信，兴趣是最好的缘分——无论你热爱什么，都能在这里找到同频的人。</p>
+      <br>
+      <p>这里没有条条框框，只有<b>「轻松做自己」</b>的信条。你可以分享热爱、展示作品、聊喜欢的番剧，或是单纯地当一个安静的潜水选手，一切都由你决定。</p>
+    </div>
+  </section>
+
+  <!-- 兴趣 -->
+  <section id="interests" class="fade">
+    <h2>我们的兴趣</h2>
+    <div class="grid">
+      <div class="card">
+        <div class="ic">🎨</div>
+        <h3>创作绘画</h3>
+        <p>从涂鸦到成品，记录每一份灵感的诞生。</p>
+      </div>
+      <div class="card">
+        <div class="ic">🎭</div>
+        <h3>角色扮演</h3>
+        <p>用热爱演绎角色，每一次变身都是新的故事。</p>
+      </div>
+      <div class="card">
+        <div class="ic">📚</div>
+        <h3>动漫文化</h3>
+        <p>番剧、轻小说、虚拟偶像……聊不完的话题。</p>
+      </div>
+      <div class="card">
+        <div class="ic">✋</div>
+        <h3>手工手作</h3>
+        <p>手办、谷子、手工DIY，把喜欢捧在手里。</p>
+      </div>
+      <div class="card">
+        <div class="ic">🎤</div>
+        <h3>声音艺术</h3>
+        <p>配音、语C、唱歌，用声音传递情绪。</p>
+      </div>
+      <div class="card">
+        <div class="ic">🌈</div>
+        <h3>多元文化</h3>
+        <p>三坑、谷圈、漫展……包容每一种热爱。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 氛围 -->
+  <section id="vibe" class="fade">
+    <h2>这里的氛围</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>🌸 友好包容</h3>
+        <p>尊重每一个人的喜好，新手老手都一样欢迎。</p>
+      </div>
+      <div class="card">
+        <h3>🎈 轻松自在</h3>
+        <p>不卷不催，聊天发呆都随你，开心最重要。</p>
+      </div>
+      <div class="card">
+        <h3>💫 活跃有趣</h3>
+        <p>总有聊不完的新鲜事和志同道合的伙伴。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 口号 -->
+  <section class="slogan fade">
+    「 云朵会飘散，但热爱不会。<br>
+    愿每一个来到云家的人，都能被温柔以待。」<br>
+    <span style="font-size:16px;opacity:.8;">—— 轻松做自己 ——</span>
+  </section>
+
+  <!-- 加入 -->
+  <section id="join" class="fade" style="text-align:center;">
+    <h2 style="justify-content:center;">欢迎回家</h2>
+    <div class="about" style="max-width:560px;margin:0 auto;">
+      <p>如果你也喜欢这样的氛围，欢迎成为云家的一员 ✨</p>
+      <p style="margin-top:12px;opacity:.8;">点击下方按钮，即可通过邀请链接加入云家。</p>
+      <a class="btn-pink" href="https://qm.qq.com/q/4QldmZl5p0" target="_blank" rel="noopener">加入云家 QQ 群</a>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 云家 · Yun Home · 用心守护每一个热爱</p>
+    <p>本网站为兴趣社群展示页面，不含任何隐私信息</p>
+  </footer>
+
+</div>
+
+<script>
+  // 生成星星
+  const box=document.getElementById('stars');
+  for(let i=0;i<80;i++){
+    const s=document.createElement('div');
+    s.className='star';
+    s.style.top=Math.random()*100+'%';
+    s.style.left=Math.random()*100+'%';
+    s.style.animationDelay=Math.random()*3+'s';
+    s.style.width=s.style.height=(Math.random()*2+1)+'px';
+    box.appendChild(s);
+  }
+
+  // ============ 自动检测屏幕宽度 → 重新排版 ============
+  const grids=document.querySelectorAll('.grid');
+  const wrap=document.querySelector('.wrap');
+
+  // 根据宽度返回对应的布局配置
+  function getLayout(w){
+    if(w>=1400)      return {minmax:240,gap:22,cols:4};   // 超大屏：大卡片
+    if(w>=961)       return {minmax:200,gap:18,cols:3};   // 桌面：默认
+    if(w>=721)       return {minmax:180,gap:16,cols:3};   // 平板横屏
+    if(w>=421)       return {minmax:150,gap:14,cols:2};   // 平板竖屏/大屏手机
+    return              {minmax:0,  gap:12,cols:1};       // 手机：单列
+  }
+
+  function applyLayout(){
+    const w=window.innerWidth;
+    const lay=getLayout(w);
+
+    grids.forEach(g=>{
+      if(lay.cols===1){
+        g.style.gridTemplateColumns='1fr';                 // 手机单列
+      }else{
+        g.style.gridTemplateColumns=`repeat(auto-fit,minmax(${lay.minmax}px,1fr))`;
+      }
+      g.style.gap=lay.gap+'px';
+    });
+
+    // 给 wrap 设置合适的左右内边距（越窄屏留白越紧）
+    if(w<421)      wrap.style.paddingLeft=wrap.style.paddingRight='12px';
+    else if(w<721) wrap.style.paddingLeft=wrap.style.paddingRight='16px';
+    else            wrap.style.paddingLeft=wrap.style.paddingRight='';   // 交还给 CSS
+  }
+
+  // 初始化 + 窗口尺寸变化时实时重排
+  applyLayout();
+  window.addEventListener('resize',applyLayout);
+  window.addEventListener('orientationchange',()=>setTimeout(applyLayout,200)); // 移动端旋转
+</script>
+</body>
+</html>
