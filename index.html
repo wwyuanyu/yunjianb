@@ -421,6 +421,15 @@
     </div>
   </section>
 
+  <!-- 友情链接 -->
+  <section id="links" class="fade" style="text-align:center;">
+    <h2 style="justify-content:center;">友情链接</h2>
+    <div style="display:flex;gap:18px;justify-content:center;flex-wrap:wrap;">
+      <a class="btn-pink" href="https://wwyuanyu.github.io/yyxg.github.io/" target="_blank" rel="noopener">技术交流</a>
+      <a class="btn-pink" href="https://wwyuanyu.github.io/ltq/" target="_blank" rel="noopener">聊天群</a>
+    </div>
+  </section>
+
   <footer>
     <p>©网站由云.渊·Yun Home所有</p>
   </footer>
@@ -503,6 +512,26 @@
     logoAvatar.addEventListener('click', e => e.preventDefault());
     logoAvatar.addEventListener('touchend', e => e.preventDefault());
   }
+
+  // ============ 标签页标题：离开 / 返回 切换 ============
+  const ORIGIN_TITLE = '云家 · Yun Home';   // 原本的标题
+  const LEAVE_TITLE  = '云家想你了';        // 切到其他标签页时
+  const BACK_TITLE   = '欢迎回家';          // 重新进入本页面时
+
+  // 页面完全隐藏（切走 / 最小化）时触发
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      // 切到其他标签页 → 显示挽留文案
+      document.title = LEAVE_TITLE;
+    } else {
+      // 重新回到本页面 → 先显示欢迎回来，再恢复原本标题
+      document.title = BACK_TITLE;
+      clearTimeout(window.__titleTimer);
+      window.__titleTimer = setTimeout(() => {
+        document.title = ORIGIN_TITLE;
+      }, 1500);   // 1.5 秒后还原，可按需调整
+    }
+  });
 </script>
 </body>
 </html>
