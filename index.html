@@ -208,9 +208,115 @@
     0%,100%{transform:translateY(0);}
     50%{transform:translateY(-10px);}
   }
+
+  /* ========== 进入动画：欢迎页（头像跳动 + 点击进入） ========== */
+  #welcome-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: linear-gradient(135deg, #1a0b2e 0%, #2b1055 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    transition: opacity 1s ease;
+  }
+  #welcome-overlay.hide {
+    opacity: 0;
+    pointer-events: none;
+  }
+  .welcome-main {
+    font-size: 52px;
+    font-weight: 900;
+    letter-spacing: 10px;
+    background: linear-gradient(90deg, var(--pink), var(--purple), var(--blue));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    animation: welcomeZoom .8s ease-out both;
+  }
+  .welcome-sub {
+    margin-top: 18px;
+    font-size: 16px;
+    letter-spacing: 6px;
+    color: rgba(255,255,255,.7);
+    animation: welcomeFade 1s .4s ease-out both;
+  }
+  @keyframes welcomeZoom {
+    0%   { opacity: 0; transform: scale(.7) translateY(30px); }
+    100% { opacity: 1; transform: scale(1) translateY(0); }
+  }
+  @keyframes welcomeFade {
+    0%   { opacity: 0; transform: translateY(12px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  /* 欢迎页头像：粉紫渐变边框 + 外发光 + 上下跳动 */
+  .welcome-avatar {
+    display: block;
+    width: 150px; height: 150px;
+    margin: 34px auto 0;
+    padding: 5px;
+    border-radius: 50%;
+    background: linear-gradient(135deg,#ff9ff3,#c56bff);
+    box-shadow: 0 0 22px rgba(255,159,243,.7), 0 0 44px rgba(197,107,255,.45);
+    animation: welcomeBounce 1.4s ease-in-out infinite;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  .welcome-avatar img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 50%;
+    border: 3px solid #2b1055;
+  }
+  .welcome-avatar:hover {
+    animation-play-state: paused;
+    transform: scale(1.06);
+    box-shadow: 0 0 30px rgba(255,159,243,.95), 0 0 58px rgba(197,107,255,.6);
+  }
+  @keyframes welcomeBounce {
+    0%,100% { transform: translateY(0); }
+    50%     { transform: translateY(-16px); }
+  }
+
+  /* 点击头像进入主页 提示文字 */
+  .welcome-hint {
+    margin-top: 26px;
+    font-size: 17px;
+    letter-spacing: 3px;
+    color: rgba(255,255,255,.85);
+    animation: hintBlink 1.6s ease-in-out infinite;
+    cursor: pointer;
+  }
+  .welcome-hint::after {
+    content: " ▾";
+    font-size: 20px;
+  }
+  @keyframes hintBlink {
+    0%,100% { opacity: .55; }
+    50%     { opacity: 1; }
+  }
+
+  /* 小屏适配 */
+  @media (max-width:420px){
+    .welcome-main{font-size:30px;letter-spacing:4px;}
+    .welcome-avatar{width:110px;height:110px;margin-top:24px;}
+    .welcome-hint{font-size:14px;margin-top:18px;}
+  }
 </style>
 </head>
 <body>
+
+<!-- 进入动画：欢迎加入云家 -->
+<div id="welcome-overlay">
+  <div class="welcome-main">欢迎加入云家</div>
+  <div class="welcome-sub">Yun Home · 云端上的小窝</div>
+  <a class="welcome-avatar" href="#" id="welcome-avatar" title="点击进入主页">
+    <img src="https://imgbob.net/ib/qW9qO2OQe2ZLe8H_1788002525.jpg" alt="云家头像"/>
+  </a>
+  <div class="welcome-hint">点击头像进入主页</div>
+</div>
 
 <div class="stars" id="stars"></div>
 
@@ -370,6 +476,26 @@
   applyLayout();
   window.addEventListener('resize',applyLayout);
   window.addEventListener('orientationchange',()=>setTimeout(applyLayout,200)); // 移动端旋转
+
+  // ============ 进入动画：点击头像进入主页 ============
+  const welcomeOverlay = document.getElementById('welcome-overlay');
+  const welcomeAvatar  = document.getElementById('welcome-avatar');
+  const welcomeHint    = document.querySelector('.welcome-hint');
+
+  // 隐藏欢迎层，进入主页
+  function enterHome(e){
+    if(e && e.preventDefault) e.preventDefault();
+    if(!welcomeOverlay.classList.contains('hide')){
+      welcomeOverlay.classList.add('hide');
+      // 动画结束后从 DOM 移除，避免遮挡后续交互
+      setTimeout(()=> welcomeOverlay.remove(), 1000);
+    }
+  }
+
+  // 点击头像 → 进入主页
+  if(welcomeAvatar) welcomeAvatar.addEventListener('click', enterHome);
+  // 点击提示文字 → 也进入主页
+  if(welcomeHint)   welcomeHint.addEventListener('click', enterHome);
 </script>
 </body>
 </html>
