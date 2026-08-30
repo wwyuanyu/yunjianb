@@ -313,7 +313,7 @@
   <div class="welcome-main">欢迎加入云家</div>
   <div class="welcome-sub">Yun Home · 云端上的小窝</div>
   <a class="welcome-avatar" href="#" id="welcome-avatar" title="点击进入主页">
-    <img src="https://imgbob.net/ib/qW9qO2OQe2ZLe8H_1788002525.jpg" alt="云家头像"/>
+    <img src="https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAEaHVRqkr3tjBORH2kGykGqD-gueDmPawACVyQAAmiKmVRNK96kIai3aj0E.jpeg" alt="BQACAgUAAyEGAASHRsPbAAEaHVRqkr3tjBORH2kGykGqD-gueDmPawACVyQAAmiKmVRNK96kIai3aj0E.jpeg"/>
   </a>
   <div class="welcome-hint">点击头像进入主页</div>
 </div>
@@ -323,8 +323,8 @@
 <div class="wrap">
 
   <header class="fade">
-    <a class="logo-avatar" target="_blank" href="https://imgbob.net/WCiZOpJG0dLxDdw">
-      <img src="https://imgbob.net/ib/qW9qO2OQe2ZLe8H_1788002525.jpg" alt="云家头像.jpg"/>
+    <a class="logo-avatar" id="logo-avatar" href="#">
+      <img src="https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAEaHVRqkr3tjBORH2kGykGqD-gueDmPawACVyQAAmiKmVRNK96kIai3aj0E.jpeg" alt="云家头像"/>
     </a>
     <div class="logo">云家</div>
     <div class="subtitle">Yun Home · 云端上的小窝</div>
@@ -496,6 +496,13 @@
   if(welcomeAvatar) welcomeAvatar.addEventListener('click', enterHome);
   // 点击提示文字 → 也进入主页
   if(welcomeHint)   welcomeHint.addEventListener('click', enterHome);
+
+  // ============ 主页头像：点击什么都不做 ============
+  const logoAvatar = document.getElementById('logo-avatar');
+  if(logoAvatar){
+    logoAvatar.addEventListener('click', e => e.preventDefault());
+    logoAvatar.addEventListener('touchend', e => e.preventDefault());
+  }
 </script>
 </body>
 </html>
