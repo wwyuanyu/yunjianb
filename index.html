@@ -17,6 +17,8 @@
     --text:#f5e9ff;
   }
   *{margin:0;padding:0;box-sizing:border-box;}
+  /* 锚点落位时留出顶部呼吸空间，标题不会贴着屏幕边缘 */
+  html{scroll-padding-top:28px;}
   body{
     font-family:"STKaiti","KaiTi","SimSun",serif;
     color:var(--text);
@@ -90,8 +92,77 @@
     border-radius:20px;line-height:1.8;font-weight:600;
   }
 
+  /* ========== 赞助区 ========== */
+  #sponsor{text-align:center;}
+  .sponsor-box{
+    background:linear-gradient(135deg,rgba(255,143,177,.18),rgba(167,139,250,.18));
+    border:1px solid rgba(255,255,255,0.14);
+    border-radius:20px;
+    padding:32px 24px 28px;
+    max-width:420px;margin:0 auto;
+    backdrop-filter:blur(10px);
+  }
+  .sponsor-title{
+    font-size:18px;font-weight:700;letter-spacing:2px;margin-bottom:6px;
+    background:linear-gradient(90deg,var(--pink),var(--purple));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .sponsor-desc{font-size:13px;opacity:.7;margin-bottom:18px;line-height:1.7;}
+  .sponsor-qr{
+    display:inline-block;
+    width:230px;max-width:78vw;
+    padding:10px;
+    border-radius:18px;
+    background:rgba(255,255,255,.92);
+    box-shadow:0 8px 28px rgba(255,111,181,.35),0 0 0 4px rgba(255,159,243,.25);
+    transition:transform .35s ease,box-shadow .35s ease;
+    animation:qrFloat 3.5s ease-in-out infinite;
+  }
+  .sponsor-qr:hover{transform:scale(1.04);box-shadow:0 12px 36px rgba(255,111,181,.55),0 0 0 4px rgba(197,107,255,.45);}
+  .sponsor-qr img{width:100%;height:auto;display:block;border-radius:10px;}
+  @keyframes qrFloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+  .sponsor-tip{margin-top:16px;font-size:12px;opacity:.6;letter-spacing:1px;}
+
   /* 页脚 */
   footer{text-align:center;padding:40px 20px 20px;opacity:.55;font-size:13px;line-height:1.8;}
+
+  @media (max-width:420px){
+    .sponsor-box{padding:24px 16px 22px;}
+    .sponsor-title{font-size:16px;}
+    .sponsor-desc{font-size:12px;}
+  }
+
+  /* ========== 保存图片按钮 ========== */
+  .btn-save{
+    display:inline-flex;align-items:center;gap:8px;
+    margin-top:18px;
+    padding:11px 26px;
+    font-family:inherit;
+    font-size:15px;font-weight:700;letter-spacing:1px;
+    color:#fff;cursor:pointer;
+    border:1.5px solid rgba(255,159,243,.55);
+    border-radius:40px;
+    background:rgba(255,255,255,0.06);
+    backdrop-filter:blur(6px);
+    box-shadow:0 4px 16px rgba(197,107,255,.22);
+    transition:background .35s ease,transform .3s ease,box-shadow .3s ease,border-color .3s ease;
+  }
+  .btn-save:hover{
+    background:rgba(255,159,243,.18);
+    border-color:rgba(255,159,243,.9);
+    transform:translateY(-3px);
+    box-shadow:0 8px 24px rgba(255,111,181,.45);
+  }
+  .btn-save:active{transform:translateY(-1px) scale(.98);}
+  .btn-save .ico{font-size:16px;line-height:1;}
+  /* 保存中 / 完成 的状态提示 */
+  .btn-save.loading{opacity:.7;pointer-events:none;}
+  .btn-save.done{background:rgba(126,231,160,.16);border-color:rgba(126,231,160,.8);}
+
+  /* 长按图片保存提示（手机端） */
+  .save-hint{
+    margin-top:10px;font-size:11px;opacity:.55;letter-spacing:1px;
+  }
 
   /* 粉色渐变按钮 */
   .btn-pink{
@@ -430,6 +501,26 @@
     </div>
   </section>
 
+  <!-- 赞助支持 -->
+  <section id="sponsor" class="fade">
+    <h2 style="justify-content:center;">赞助支持</h2>
+    <div class="sponsor-box">
+      <div class="sponsor-title">☕ 请渊渊喝杯奶茶</div>
+      <div class="sponsor-desc">如果云家让你感到温暖，<br>欢迎扫码赞助，用于服务器与域名维护 ✨</div>
+      <div class="sponsor-qr">
+        <img src="https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAEaOc9qlXT5MOpSW5X9ZHBUmBfhsMHQEQACkSYAAljgsVRoaBn9XjKIvj0E.png" alt="赞助码" loading="lazy"/>
+      </div>
+      <a class="btn-save"
+         href="https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAEaOc9qlXT5MOpSW5X9ZHBUmBfhsMHQEQACkSYAAljgsVRoaBn9XjKIvj0E.png"
+         download="渊渊赞助码.png"
+         target="_blank" rel="noopener">
+        <span class="ico">💾</span><span class="txt">保存图片</span>
+      </a>
+      <div class="save-hint">手机可长按图片直接保存</div>
+      <div class="sponsor-tip">感谢每一位愿意支持云家的你 💗</div>
+    </div>
+  </section>
+
   <footer>
     <p>©网站由云.渊·Yun Home所有</p>
   </footer>
@@ -485,6 +576,60 @@
   applyLayout();
   window.addEventListener('resize',applyLayout);
   window.addEventListener('orientationchange',()=>setTimeout(applyLayout,200)); // 移动端旋转
+
+  // ============ 导航按钮：点击后缓慢滑动到对应区块 ============
+  // 缓动函数（先慢 → 中间快 → 结尾慢，滑动更温柔）
+  function easeInOutCubic(t){
+    return t<0.5 ? 4*t*t*t : 1-Math.pow(-2*t+2,3)/2;
+  }
+
+  // 平滑滚动到目标位置；距离越远，用时越长（0.6s ~ 1.3s）
+  function smoothScrollTo(targetY){
+    const startY   = window.pageYOffset || document.documentElement.scrollTop;
+    const distance = targetY - startY;
+    if(Math.abs(distance) < 2) return;                    // 几乎不用动，直接跳过
+
+    const duration = Math.min(1300, Math.max(600, Math.abs(distance)*0.9));
+    const startTime = performance.now();
+
+    function step(now){
+      const elapsed = now - startTime;
+      const progress = Math.min(1, elapsed/duration);
+      window.scrollTo(0, startY + distance*easeInOutCubic(progress));
+      if(progress < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  // 拦截导航按钮的默认"瞬移"，改成缓慢滑动
+  document.querySelectorAll('nav a[href^="#"]').forEach(link=>{
+    link.addEventListener('click', function(e){
+      const target = document.querySelector(this.getAttribute('href'));
+      if(!target) return;
+      e.preventDefault();
+
+      // 尊重"减少动态效果"的系统设置：直接定位，不做动画
+      if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+        target.scrollIntoView();
+      }else{
+        const top = target.getBoundingClientRect().top + (window.pageYOffset||0) - 28;
+        smoothScrollTo(top);
+      }
+      // 同步地址栏 hash，但不产生额外的跳转
+      history.replaceState(null,'',this.getAttribute('href'));
+    });
+  });
+
+  // ============ 保存图片按钮：点击即下载 ============
+  document.querySelectorAll('.btn-save').forEach(btn=>{
+    const txtEl = btn.querySelector('.txt');
+    const originTxt = txtEl ? txtEl.textContent : '';
+    btn.addEventListener('click', ()=>{
+      btn.classList.add('done');
+      if(txtEl) txtEl.textContent = '开始下载 ✓';
+      setTimeout(()=>{ btn.classList.remove('done'); if(txtEl) txtEl.textContent = originTxt; }, 2200);
+    });
+  });
 
   // ============ 进入动画：点击头像进入主页 ============
   const welcomeOverlay = document.getElementById('welcome-overlay');
