@@ -353,7 +353,7 @@
   <div class="welcome-main">欢迎加入云家</div>
   <div class="welcome-sub">Yun Home · 云端上的小窝</div>
   <a class="welcome-avatar" href="#" id="welcome-avatar" title="点击进入主页">
-    <img src="https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAEaHVRqkr3tjBORH2kGykGqD-gueDmPawACVyQAAmiKmVRNK96kIai3aj0E.jpeg" alt="BQACAgUAAyEGAASHRsPbAAEaHVRqkr3tjBORH2kGykGqD-gueDmPawACVyQAAmiKmVRNK96kIai3aj0E.jpeg"/>
+    <img src="https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAEaHVRqkr3tjBORH2kGykGqD-gueDmPawACVyQAAmiKmVRNK96kIai3aj0E.jpeg" alt="云家头像"/>
   </a>
   <div class="welcome-hint">点击头像进入主页</div>
 </div>
@@ -371,11 +371,12 @@
     <div class="tagline">一个属于同好们的温柔角落</div>
   </header>
 
-  <!-- 导航：赞助一下 + 进入群聊（下滑到对应区域）+ 网络安全文档 -->
+  <!-- 导航栏：赞助 / 群聊 / 网络安全文档 / 站长QQ -->
   <nav class="fade">
     <a href="#sponsor">赞助一下</a>
     <a href="#join" id="nav-join">进入群聊</a>
     <a href="https://wwyuanyu.github.io/wlaq.io/" target="_blank" rel="noopener">网络安全文档</a>
+    <a href="https://qm.qq.com/q/UY0AyskRau" target="_blank" rel="noopener">站长QQ</a>
   </nav>
 
   <!-- 关于 -->
@@ -493,6 +494,7 @@
 
   <footer>
     <p>©网站由云.渊·Yun Home所有</p>
+    <p>站长QQ：<a class="link-pink" href="https://qm.qq.com/q/UY0AyskRau" target="_blank" rel="noopener">点击联系</a></p>
   </footer>
 
 </div>
@@ -597,7 +599,6 @@
     });
   });
 
-  // 修复：点击头像进入主页
   const welcomeAvatar = document.getElementById('welcome-avatar');
   const welcomeHint   = document.querySelector('.welcome-hint');
   const logoAvatar    = document.getElementById('logo-avatar');
@@ -612,7 +613,6 @@
         if(overlay.parentNode) overlay.parentNode.removeChild(overlay);
       }, 1000);
     } else {
-      // 欢迎遮罩已在之前关闭，则平滑滚动回顶部
       smoothScrollTo(0);
     }
   }
