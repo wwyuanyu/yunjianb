@@ -376,7 +376,7 @@
     <a href="#sponsor">赞助一下</a>
     <a href="#join" id="nav-join">进入群聊</a>
     <a href="https://wwyuanyu.github.io/wlaq.io/" target="_blank" rel="noopener">网络安全文档</a>
-    <a href="https://qm.qq.com/q/UY0AyskRau" target="_blank" rel="noopener">站长QQ</a>
+    <a href="https://qm.qq.com/q/UY0AyskRau" id="nav-qq" target="_blank" rel="noopener">站长QQ</a>
   </nav>
 
   <!-- 关于 -->
@@ -494,7 +494,7 @@
 
   <footer>
     <p>©网站由云.渊·Yun Home所有</p>
-    <p>站长QQ：<a class="link-pink" href="https://qm.qq.com/q/UY0AyskRau" target="_blank" rel="noopener">点击联系</a></p>
+    <p>站长QQ：<a class="link-pink" id="footer-qq" href="https://qm.qq.com/q/UY0AyskRau" target="_blank" rel="noopener">点击联系</a></p>
   </footer>
 
 </div>
@@ -640,6 +640,89 @@
   const ORIGIN_TITLE = '云家 · Yun Home';
   const LEAVE_TITLE  = '云家想你了';
   const BACK_TITLE   = '欢迎回家';
+
+  /* ========== 站长QQ · 多设备检测 ==========
+     电脑端：直接打开链接（新标签页）
+     其他设备（手机/平板）：
+       ① 先尝试唤起 QQ App 打开站长个人资料卡（mqqapi 名片 scheme）
+       ② 若 1.5s 内页面未切到后台（QQ 未唤起成功），再回退打开网页版链接
+     说明：QQ 私有 scheme 在不同浏览器/iOS 上兼容性不一，回退机制保证"点了一定有反应"。
+  */
+  (function () {
+    // ★ 站长 QQ 号（纯数字），改成你自己的即可
+    var OWNER_UIN = '3799498640';
+
+    // 回退的网页版链接（qm 短链）
+    var QQ_URL = 'https://qm.qq.com/q/UY0AyskRau';
+
+    // 打开「站长个人资料卡」的 scheme
+    // 加群名片把 card_type 改成 group、uin 填群号即可
+    function getCardScheme(uin) {
+      return 'mqqapi://card/show_pslcard?src_type=internal&version=1&uin=' +
+             encodeURIComponent(uin);
+    }
+
+    // 打开「临时会话 / 加好友」的 scheme（若名片打不开可换这个试试）
+    function getChatScheme(uin) {
+      return 'mqq://im/chat?chat_type=wpa&uin=' + encodeURIComponent(uin) +
+             '&version=1&src_type=web';
+    }
+
+    // 判断是否为电脑（桌面）设备
+    function isDesktop() {
+      var ua = navigator.userAgent || '';
+      var mobileRE = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile/i;
+      var isMobileUA = mobileRE.test(ua);
+      var isCoarsePointer = window.matchMedia &&
+        window.matchMedia('(pointer: coarse)').matches;
+      // iPadOS 13+ 的 UA 伪装成桌面 Mac，靠触屏指针额外判断
+      if (/iPad/.test(ua) || (navigator.platform === 'MacIntel' && isCoarsePointer)) {
+        return false;
+      }
+      if (isMobileUA) return false;
+      return true;
+    }
+
+    // 手机/平板：先唤起 QQ，失败则回退网页
+    function openQQ(uin) {
+      var scheme = getCardScheme(uin); // 想先开聊天就用 getChatScheme(uin)
+      var done = false;
+
+      var visHandler = function () {
+        if (document.hidden) {
+          done = true;
+          clearTimeout(timer);
+        }
+        document.removeEventListener('visibilitychange', visHandler);
+      };
+      document.addEventListener('visibilitychange', visHandler);
+
+      // ① 先唤起 QQ App
+      window.location.href = scheme;
+
+      // ② 1.5s 未切后台 = 唤起失败，回退网页
+      var timer = setTimeout(function () {
+        if (!done) {
+          window.open(QQ_URL, '_blank', 'noopener,noreferrer');
+        }
+      }, 1500);
+    }
+
+    function bindQQLink(a) {
+      if (!a) return;
+      a.addEventListener('click', function (e) {
+        if (isDesktop()) {
+          // 电脑端：直接新标签页打开，不做任何拦截
+          return;
+        }
+        e.preventDefault();
+        openQQ(OWNER_UIN);
+      });
+    }
+
+    bindQQLink(document.getElementById('nav-qq'));
+    bindQQLink(document.getElementById('footer-qq'));
+  })();
 
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) {
