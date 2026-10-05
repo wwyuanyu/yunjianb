@@ -43,18 +43,32 @@
   .tagline{margin-top:8px;font-size:14px;opacity:.6;}
 
   nav{
-    display:flex;justify-content:center;gap:14px;flex-wrap:wrap;
+    display:grid;grid-template-columns:1fr 1fr;
+    gap:14px;
     margin:30px 0;
+    max-width:560px;
+    margin-left:auto;
+    margin-right:auto;
   }
   nav a{
+    display:flex;align-items:center;justify-content:center;
     color:#fff;text-decoration:none;
-    padding:10px 22px;border-radius:30px;
-    background:linear-gradient(135deg,#ff9fbf,#ff6f9f);
+    padding:16px 18px;border-radius:16px;
     background-size:200% 200%;
-    box-shadow:0 4px 16px rgba(255,143,177,.45);
-    transition:.4s;font-size:15px;font-weight:600;
+    box-shadow:0 4px 16px rgba(255,143,177,.35);
+    transition:.4s;font-size:16px;font-weight:600;letter-spacing:1px;
   }
-  nav a:hover{background-position:100% 100%;transform:translateY(-3px);box-shadow:0 8px 24px rgba(255,111,181,.6);}
+  nav a:hover{background-position:100% 100%;transform:translateY(-3px);}
+  nav a:nth-child(1){background-image:linear-gradient(135deg,#ff9fbf,#ff6f9f);box-shadow:0 4px 16px rgba(255,143,177,.45);}
+  nav a:nth-child(2){background-image:linear-gradient(135deg,#ffc36b,#ff8a5b);box-shadow:0 4px 16px rgba(255,163,92,.45);}
+  nav a:nth-child(3){background-image:linear-gradient(135deg,#7ec8ff,#5b8cff);box-shadow:0 4px 16px rgba(120,160,255,.45);}
+  nav a:nth-child(4){background-image:linear-gradient(135deg,#a97bff,#6c4bff);box-shadow:0 4px 16px rgba(150,120,255,.45);}
+  nav a:nth-child(5){background-image:linear-gradient(135deg,#ff8fbf,#ff5b8a);box-shadow:0 4px 16px rgba(255,120,170,.45);grid-column:1 / -1;max-width:calc(50% - 7px);margin:0 auto;width:100%;}
+  nav a:nth-child(1):hover{box-shadow:0 8px 24px rgba(255,143,177,.6);}
+  nav a:nth-child(2):hover{box-shadow:0 8px 24px rgba(255,163,92,.6);}
+  nav a:nth-child(3):hover{box-shadow:0 8px 24px rgba(120,160,255,.6);}
+  nav a:nth-child(4):hover{box-shadow:0 8px 24px rgba(150,120,255,.6);}
+  nav a:nth-child(5):hover{box-shadow:0 8px 24px rgba(255,120,170,.6);}
 
   section{margin:50px 0;}
   h2{
@@ -373,11 +387,12 @@
   </header>
 
   <!-- 导航栏：赞助 / 群聊 / 网络安全文档 / 站长QQ -->
-  <nav class="fade">
+  <nav class="fade" id="main-nav">
     <a href="#sponsor">赞助一下</a>
     <a href="#join" id="nav-join">进入群聊</a>
     <a href="https://wwyuanyu.github.io/wlaq.io/" target="_blank" rel="noopener">网络安全文档</a>
     <a href="https://qm.qq.com/q/UY0AyskRau" id="nav-qq" target="_blank" rel="noopener">站长QQ</a>
+    <a href="https://v.kuaishou.com/nTEg3jsR" id="nav-kuaishou" target="_blank" rel="noopener">站长快手</a>
   </nav>
 
   <!-- 关于 -->
@@ -471,6 +486,7 @@
       <a class="btn-pink" href="https://wwyuanyu.github.io/ltq/" target="_blank" rel="noopener">旧社区</a>
       <a class="btn-pink" href="https://wwyuanyu.github.io/wlaq.io/" target="_blank" rel="noopener">网络安全文档</a>
       <a class="btn-pink" href="https://wwyuanyu.github.io/rytj.io/" target="_blank" rel="noopener">人员名单分站</a>
+      <a class="btn-pink" href="https://v.kuaishou.com/nTEg3jsR" target="_blank" rel="noopener">站长快手</a>
     </div>
   </section>
 
