@@ -43,32 +43,55 @@
   .tagline{margin-top:8px;font-size:14px;opacity:.6;}
 
   nav{
-    display:grid;grid-template-columns:1fr 1fr;
+    display:grid;grid-template-columns:repeat(2,1fr);
     gap:14px;
     margin:30px 0;
-    max-width:560px;
+    max-width:520px;
     margin-left:auto;
     margin-right:auto;
   }
   nav a{
     display:flex;align-items:center;justify-content:center;
     color:#fff;text-decoration:none;
-    padding:16px 18px;border-radius:16px;
+    padding:16px 8px;border-radius:16px;
     background-size:200% 200%;
     box-shadow:0 4px 16px rgba(255,143,177,.35);
-    transition:.4s;font-size:16px;font-weight:600;letter-spacing:1px;
+    transition:.4s;font-size:14px;font-weight:600;letter-spacing:1px;
   }
   nav a:hover{background-position:100% 100%;transform:translateY(-3px);}
   nav a:nth-child(1){background-image:linear-gradient(135deg,#ff9fbf,#ff6f9f);box-shadow:0 4px 16px rgba(255,143,177,.45);}
   nav a:nth-child(2){background-image:linear-gradient(135deg,#ffc36b,#ff8a5b);box-shadow:0 4px 16px rgba(255,163,92,.45);}
   nav a:nth-child(3){background-image:linear-gradient(135deg,#7ec8ff,#5b8cff);box-shadow:0 4px 16px rgba(120,160,255,.45);}
   nav a:nth-child(4){background-image:linear-gradient(135deg,#a97bff,#6c4bff);box-shadow:0 4px 16px rgba(150,120,255,.45);}
-  nav a:nth-child(5){background-image:linear-gradient(135deg,#ff8fbf,#ff5b8a);box-shadow:0 4px 16px rgba(255,120,170,.45);grid-column:1 / -1;max-width:calc(50% - 7px);margin:0 auto;width:100%;}
+  nav a:nth-child(5){background-image:linear-gradient(135deg,#ff8fbf,#ff5b8a);box-shadow:0 4px 16px rgba(255,120,170,.45);}
+  nav a:nth-child(6){background-image:linear-gradient(135deg,#ffb199,#ff6f91);box-shadow:0 4px 16px rgba(255,130,150,.45);}
   nav a:nth-child(1):hover{box-shadow:0 8px 24px rgba(255,143,177,.6);}
   nav a:nth-child(2):hover{box-shadow:0 8px 24px rgba(255,163,92,.6);}
   nav a:nth-child(3):hover{box-shadow:0 8px 24px rgba(120,160,255,.6);}
   nav a:nth-child(4):hover{box-shadow:0 8px 24px rgba(150,120,255,.6);}
   nav a:nth-child(5):hover{box-shadow:0 8px 24px rgba(255,120,170,.6);}
+  nav a:nth-child(6):hover{box-shadow:0 8px 24px rgba(255,130,150,.6);}
+
+  /* 带头像的导航按钮：头像 + 文字左右排列 */
+  nav a.has-avatar{
+    display:flex;align-items:center;justify-content:center;gap:10px;
+  }
+  nav a.has-avatar .av{
+    width:24px;height:24px;border-radius:50%;
+    padding:2px;
+    background:linear-gradient(135deg,#fff,#ffd6e5);
+    box-shadow:0 0 8px rgba(255,255,255,.8),0 0 14px rgba(255,143,177,.6);
+    flex:0 0 auto;
+    transition:transform .4s,box-shadow .4s;
+  }
+  nav a.has-avatar .av img{
+    width:100%;height:100%;object-fit:cover;display:block;border-radius:50%;
+    border:1.5px solid #fff;
+  }
+  nav a.has-avatar:hover .av{
+    transform:scale(1.12) rotate(-6deg);
+    box-shadow:0 0 14px rgba(255,255,255,.95),0 0 24px rgba(255,143,177,.85);
+  }
 
   section{margin:50px 0;}
   h2{
@@ -217,8 +240,8 @@
     header{padding:24px 12px;}
     .logo{font-size:44px;letter-spacing:4px;}
     .subtitle{font-size:16px;}
-    nav{gap:10px;margin:22px 0;}
-    nav a{padding:8px 16px;font-size:14px;}
+    nav{gap:10px;margin:22px 0;grid-template-columns:repeat(2,1fr);}
+    nav a{padding:16px 8px;font-size:14px;}
     h2{font-size:24px;}
     .grid{grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;}
     .card{padding:18px;}
@@ -240,7 +263,7 @@
     h2{font-size:21px;justify-content:center;}
     .about{padding:18px;}
     .slogan{font-size:16px;padding:24px 14px;}
-    nav a{padding:7px 13px;font-size:13px;}
+    nav a{padding:14px 6px;font-size:13px;}
     section{margin:28px 0;}
     footer{font-size:12px;}
   }
@@ -393,6 +416,10 @@
     <a href="https://wwyuanyu.github.io/wlaq.io/" target="_blank" rel="noopener">网络安全文档</a>
     <a href="https://qm.qq.com/q/UY0AyskRau" id="nav-qq" target="_blank" rel="noopener">站长QQ</a>
     <a href="https://v.kuaishou.com/nTEg3jsR" id="nav-kuaishou" target="_blank" rel="noopener">站长快手</a>
+    <a class="has-avatar" href="https://wwyuanyu.github.io/zyyuan/" target="_blank" rel="noopener" title="渊渊的个人主页">
+      <span class="av"><img src="https://img.remit.ee/i/zX9U3DgoMkqH" alt="渊渊头像"/></span>
+      <span>个人主页</span>
+    </a>
   </nav>
 
   <!-- 关于 -->
