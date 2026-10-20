@@ -71,6 +71,8 @@
   nav a:nth-child(4):hover{box-shadow:0 8px 24px rgba(150,120,255,.6);}
   nav a:nth-child(5):hover{box-shadow:0 8px 24px rgba(255,120,170,.6);}
   nav a:nth-child(6):hover{box-shadow:0 8px 24px rgba(255,130,150,.6);}
+  nav a:nth-child(7){background-image:linear-gradient(135deg,#ffd166,#ff8fbf);box-shadow:0 4px 16px rgba(255,180,120,.45);}
+  nav a:nth-child(7):hover{box-shadow:0 8px 24px rgba(255,180,120,.6);}
 
   /* 带头像的导航按钮：头像 + 文字左右排列 */
   nav a.has-avatar{
@@ -188,6 +190,13 @@
 
   .save-hint{
     margin-top:10px;font-size:11px;opacity:.55;letter-spacing:1px;
+  }
+
+  .links-grid{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(150px,220px));
+    gap:18px;
+    justify-content:center;
   }
 
   .btn-pink{
@@ -416,6 +425,7 @@
     <a href="https://wwyuanyu.github.io/wlaq.io/" target="_blank" rel="noopener">网络安全文档</a>
     <a href="https://qm.qq.com/q/UY0AyskRau" id="nav-qq" target="_blank" rel="noopener">站长QQ</a>
     <a href="https://v.kuaishou.com/nTEg3jsR" id="nav-kuaishou" target="_blank" rel="noopener">站长快手</a>
+    <a href="https://nvwv3.autugmakw.com/f/XagiHLYXZXO0uaO" id="nav-kuaishou-group" target="_blank" rel="noopener">快手群</a>
     <a class="has-avatar" href="https://wwyuanyu.github.io/zyyuan/" target="_blank" rel="noopener" title="渊渊的个人主页">
       <span class="av"><img src="https://img.remit.ee/i/zX9U3DgoMkqH" alt="渊渊头像"/></span>
       <span>个人主页</span>
@@ -508,12 +518,13 @@
   <!-- 相关链接：旧官网、旧社区、网络安全文档、人员名单分站 -->
   <section id="links" class="fade" style="text-align:center;">
     <h2 style="justify-content:center;">相关链接</h2>
-    <div style="display:flex;gap:18px;justify-content:center;flex-wrap:wrap;">
+    <div class="links-grid">
       <a class="btn-pink" href="https://wwyuanyu.github.io/yyxg.github.io/" target="_blank" rel="noopener">旧官网</a>
       <a class="btn-pink" href="https://wwyuanyu.github.io/ltq/" target="_blank" rel="noopener">旧社区</a>
       <a class="btn-pink" href="https://wwyuanyu.github.io/wlaq.io/" target="_blank" rel="noopener">网络安全文档</a>
       <a class="btn-pink" href="https://wwyuanyu.github.io/rytj.io/" target="_blank" rel="noopener">人员名单分站</a>
       <a class="btn-pink" href="https://v.kuaishou.com/nTEg3jsR" target="_blank" rel="noopener">站长快手</a>
+      <a class="btn-pink" href="https://nvwv3.autugmakw.com/f/XagiHLYXZXO0uaO" target="_blank" rel="noopener">快手群</a>
     </div>
   </section>
 
